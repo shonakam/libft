@@ -1,31 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 00:46:04 by shonakam          #+#    #+#             */
-/*   Updated: 2025/02/27 02:16:55 by shonakam         ###   ########.fr       */
+/*   Created: 2024/08/21 03:53:27 by shonakam          #+#    #+#             */
+/*   Updated: 2025/02/27 04:45:20 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+long long	ft_atoll(const char *s)
 {
-	size_t	i;
+	long long	r;
+	long long	sign;
 
-	if (!src)
-		return (0);
-	if (dstsize == 0)
-		return (ft_strlen(src));
-	i = 0;
-	while (src[i] != '\0' && i < (dstsize - 1))
+	r = 0; 
+	sign = 1;
+	while (ft_is_whitespace((char)*s))
+		s++;
+	if (ft_is_plus_minus((char)*s))
+		if (*s++ == '-')
+			sign = -1;
+	while (ft_is_digit((char)*s))
 	{
-		dst[i] = src[i];
-		i++;
+		if (r > (LLONG_MAX - (*s - '0')) / 10)
+		{
+			if (sign == 1)
+				return (LLONG_MAX);
+			else
+				return (LLONG_MIN);
+		}
+		r = r * 10 + (*s++ - 48);
 	}
-	dst[i] = '\0';
-	return (ft_strlen(src));
+	return (r * sign);
 }

@@ -3,20 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shonakam <shonakam@student.42.jp>          +#+  +:+       +#+        */
+/*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:29:27 by shonakam          #+#    #+#             */
-/*   Updated: 2023/10/10 15:36:56 by shonakam         ###   ########.fr       */
+/*   Updated: 2025/02/27 05:09:46 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <stdarg.h>
+# include <stdint.h>
 # include <unistd.h>
 # include <limits.h>
 # include <stdlib.h>
 # include <stdio.h>
+
+# include "ft_printf/ft_printf.h"
+# include "get_next_line/get_next_line.h"
 
 /* Part1 */
 int			ft_isalpha(int c);
@@ -43,16 +48,22 @@ int			ft_atoi(const char *str);
 void		*ft_calloc(size_t count, size_t size);
 char		*ft_strdup(const char *s1);
 /* Part2 */
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_strtrim(char const *s1, char const *set);
-char		**ft_split(char const *s, char c);
+char		*ft_substr(const char *s, unsigned int start, size_t len);
+char		*ft_strjoin(const char *s1, const char *s2);
+char		*ft_strtrim(const char *s1, const char *set);
+char		**ft_split(const char *s, char c);
 char		*ft_itoa(int n);
-char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char		*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 void		ft_striteri(char *s, void (*f)(unsigned int, char *));
-void		ft_putchar_fd(char c, int fd);
-void		ft_putstr_fd(char *s, int fd);
-void		ft_putendl_fd(char *s, int fd);
-void		ft_putnbr_fd(int n, int fd);
+/* File Descriptor Operations */
+ssize_t		ft_putchar_fd(const char c, int fd);
+ssize_t		ft_putstr_fd(const char *s, int fd);
+ssize_t		ft_putendl_fd(const char *s, int fd);
+ssize_t		ft_putnbr_fd(int n, int fd);
+/* Additional Functions */
+int			ft_is_digit(char c);
+int			ft_is_whitespace(char c);
+long long	ft_atoll(const char *s);
+int			ft_is_plus_minus(char c);
 
 #endif

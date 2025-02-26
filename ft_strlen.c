@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shonakam <shonakam@student.42.jp>          +#+  +:+       +#+        */
+/*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:33:32 by shonakam          #+#    #+#             */
-/*   Updated: 2023/10/10 15:20:07 by shonakam         ###   ########.fr       */
+/*   Updated: 2025/02/27 02:23:18 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ size_t	ft_strlen(const char *s)
 	size_t	count;
 
 	count = 0;
-	while (s[count] != '\0')
+	if (!s)
+		return (count);
+	while (s[count])
 		count++;
 	return (count);
 }

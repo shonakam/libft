@@ -3,67 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shonakam <shonakam@student.42.jp>          +#+  +:+       +#+        */
+/*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 18:50:38 by shonakam          #+#    #+#             */
-/*   Updated: 2023/10/05 21:37:44 by shonakam         ###   ########.fr       */
+/*   Updated: 2025/02/27 04:54:19 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// size_t	ft_strlen(const char *s)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (s[i])
-// 	{
-// 		i++;
-// 	}
-// 	return (i);
-// }
-
-static size_t	observe_set(char const s, char const *set)
+static int	is_in_set(char c, const char *set)
 {
-	size_t	i;
-
-	i = 0;
-	while (set[i])
+	while (*set)
 	{
-		if (s == set[i])
+		if (c == *set)
 			return (1);
-		i++;
+		set++;
 	}
 	return (0);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(const char *s1, const char *set)
 {
-	size_t	i;
-	size_t	size;
 	size_t	start;
 	size_t	end;
+	size_t	size;
 	char	*s_dst;
 
 	if (!s1 || !set)
 		return (NULL);
 	start = 0;
-	end = ft_strlen(s1) - 1;
-	while (s1[start] && observe_set(s1[start], set))
+	end = ft_strlen(s1);
+	while (s1[start] && is_in_set(s1[start], set))
 		start++;
-	if (!s1[start])
-		return (ft_calloc(1, 1));
-	while (s1[end] && observe_set(s1[end], set))
+	if (start == end)
+		return (ft_strdup(""));
+	while (end > start && is_in_set(s1[end - 1], set))
 		end--;
-	size = (end - start) + 1;
-	s_dst = (char *)malloc((size + 1) * sizeof(char));
-	if (s_dst == NULL)
+	size = end - start;
+	s_dst = (char *)malloc(size + 1);
+	if (!s_dst)
 		return (NULL);
-	i = 0;
-	while (i < size && start <= end && s1 != '\0')
-		s_dst[i++] = s1[start++];
-	s_dst[size] = '\0';
+	ft_strlcpy(s_dst, s1 + start, size + 1);
 	return (s_dst);
 }
 

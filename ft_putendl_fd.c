@@ -3,41 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shonakam <shonakam@student.42.jp>          +#+  +:+       +#+        */
+/*   By: shonakam <shonakam@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 04:34:45 by shonakam          #+#    #+#             */
-/*   Updated: 2023/10/05 20:49:33 by shonakam         ###   ########.fr       */
+/*   Updated: 2025/02/27 05:09:27 by shonakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// size_t	ft_strlen(const char *str)
-// {
-// 	size_t	count;
-
-// 	count = 0;
-// 	while (str[count] != '\0')
-// 		count++;
-// 	return (count);
-// }
-
-// void	ft_putstr_fd(char *s, int fd)
-// {
-// 	write(fd, s, ft_strlen(s));
-// }
-
-// void	ft_putchar_fd(char c, int fd)
-// {
-// 	write(fd, &c, 1);
-// }
-
-void	ft_putendl_fd(char *s, int fd)
+ssize_t	ft_putendl_fd(const char *s, int fd)
 {
+	ssize_t	result;
+	ssize_t	count;
+
 	if (!s)
-		return ;
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
+		return (-1);
+	count = ft_putstr_fd(s, fd);
+	if (count < 0)
+		return (-1);
+	result = ft_putchar_fd('\n', fd);
+	if (result < 0)
+		return (-1);
+	return (count + result);
 }
 
 // int main(int ac, char **av)
