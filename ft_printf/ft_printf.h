@@ -13,7 +13,7 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft.h"
+# include "../libft.h"
 
 void		set_hex_digits(char format, char *hex_digits);
 ssize_t		safe_putstr(const char *s, int fd);
