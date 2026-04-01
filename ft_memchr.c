@@ -50,7 +50,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 //     result = ft_memchr(numbers, num_to_find, n * sizeof(int));
 
 //     if (result != NULL) {
-//         printf("Number %d found at position: 
+//         printf("Number %d found at position:
 // %ld\n", num_to_find, (int *)result - numbers);
 //     } else {
 //         printf("Number %d not found in the array.\n", num_to_find);
