@@ -21,6 +21,9 @@ ssize_t		safe_putchar(char c, int fd);
 ssize_t		ft_put_unsigned_nbr(unsigned int n, int fd);
 ssize_t		ft_puthex(unsigned int num, char format, int fd);
 ssize_t		ft_putptr_fd(uintptr_t ptr, int fd);
+int         ft_vdprintf(int fd, const char *format, va_list ap);
 int			ft_printf(const char *format, ...)
 			__attribute__((format(printf, 1, 2)));
+int         ft_dprintf(int fd, const char *format, ...)
+            __attribute__((format(printf, 2, 3)));
 #endif
