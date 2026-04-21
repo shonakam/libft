@@ -12,22 +12,22 @@
 
 #include "ft_printf.h"
 
-static ssize_t	handle_conversion(va_list ap, char specifier, int fd)
+static ssize_t	handle_conversion(va_list *ap, char specifier, int fd)
 {
 	ssize_t	result;
 
 	if (specifier == 'c')
-		result = ft_putchar_fd(va_arg(ap, int), fd);
+		result = ft_putchar_fd(va_arg(*ap, int), fd);
 	else if (specifier == 's')
-		result = ft_putstr_fd(va_arg(ap, char *), fd);
+		result = ft_putstr_fd(va_arg(*ap, char *), fd);
 	else if (specifier == 'd' || specifier == 'i')
-		result = ft_putnbr_fd(va_arg(ap, int), fd);
+		result = ft_putnbr_fd(va_arg(*ap, int), fd);
 	else if (specifier == 'u')
-		result = ft_put_unsigned_nbr(va_arg(ap, unsigned int), fd);
+		result = ft_put_unsigned_nbr(va_arg(*ap, unsigned int), fd);
 	else if (specifier == 'x' || specifier == 'X')
-		result = ft_puthex(va_arg(ap, unsigned int), specifier, fd);
+		result = ft_puthex(va_arg(*ap, unsigned int), specifier, fd);
 	else if (specifier == 'p')
-		result = ft_putptr_fd((uintptr_t)va_arg(ap, void *), fd);
+		result = ft_putptr_fd((uintptr_t)va_arg(*ap, void *), fd);
 	else if (specifier == '%')
 		result = ft_putchar_fd('%', fd);
 	else
@@ -48,7 +48,7 @@ int ft_vdprintf(int fd, const char *format, va_list ap)
 	while (format[i])
 	{
 		if (format[i] == '%')
-			result = handle_conversion(ap, format[++i], fd);
+			result = handle_conversion(&ap, format[++i], fd);
 		else
 			result = ft_putchar_fd(format[i], fd);
 		if (result < 0)
