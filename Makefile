@@ -14,16 +14,16 @@ UNAME := $(shell uname -s)
 NAME := libft.a
 CC ?= cc
 
-DEBUG ?= 0
-
+# --- Build Modes ---
 ifeq ($(DEBUG), 1)
-	OBJS_DIR	:= .out_debug
-	MODE_FLAGS	:= -g3 -O0 -DDEBUG_MODE -fsanitize=address
-	MODE_MSG	:= "Debug Mode No Optimization, GDB ready"
+	OBJS_DIR	:= .out_debug_asan
+	CFLAGS		+= -g3 -fsanitize=address
+else ifeq ($(DEBUG), 2)
+	OBJS_DIR	:= .out_debug_valgrind
+	CFLAGS		+= -g3
 else
 	OBJS_DIR	:= .out
-	MODE_FLAGS	:= -O3
-	MODE_MSG	:= "Release Mode High Optimization"
+	CFLAGS		+= -O3
 endif
 
 CFLAGS  := -Wall -Wextra -Werror -pedantic -fno-builtin $(MODE_FLAGS)
@@ -101,7 +101,7 @@ $(OBJS_DIR)/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -rf .out .out_debug
+	@rm -rf .out*
 
 fclean: clean
 	@rm -f $(NAME)
